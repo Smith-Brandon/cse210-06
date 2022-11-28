@@ -62,10 +62,11 @@ def main():
     
    
     
-    for n in range(40):
+    for n in range(10):
 
         x = random.randint(1, COLS - 1)
-        y = random.randint(1, ROWS - 1)
+        #y = random.randint(1, ROWS - 1)
+        y = random.randint(1, 20) # Start at half page
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
 
@@ -74,33 +75,16 @@ def main():
         b = random.randint(0, 255)
         color = Color(r, g, b)
 
-        # create the Gems
-        gems = Objects()
+        # create the asteroids
+        asteroids = Objects()
         #position = Point(random.randint(2,898), 0)
-        gems.set_text("*")
-        gems.set_font_size(FONT_SIZE)
-        gems.set_color(color)
-        gems.set_position(position)
-        cast.add_actor("gems", gems)
+        asteroids.set_text("*")
+        asteroids.set_font_size(FONT_SIZE)
+        asteroids.set_color(color)
+        asteroids.set_position(position)
+        cast.add_actor("asteroids", asteroids)
 
-        x = random.randint(1, COLS - 1)
-        y = random.randint(1, ROWS - 1)
-        position = Point(x, y)
-        position = position.scale(CELL_SIZE)
 
-        r = random.randint(0, 255)
-        g = random.randint(0, 255)
-        b = random.randint(0, 255)
-        color = Color(r, g, b)
-
-        # create the Rocks
-        stones = Objects()
-        #position = Point(random.randint(2,898), 0)
-        stones.set_text("o")
-        stones.set_color(color)
-        stones.set_font_size(FONT_SIZE)
-        stones.set_position(position)
-        cast.add_actor("stones", stones)
     
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)

@@ -83,7 +83,7 @@ class Cast:
             group (string): The name of the group.
             actor (Actor): The actor to remove.
         """
-        '''If actor group is gem or stone'''
+        '''If actor group is asteroid or bullet'''
         actors = self.get_all_actors()
         countbefore = len(actors)
         index = actors.index(actor)
