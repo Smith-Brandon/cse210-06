@@ -94,7 +94,7 @@ class Director:
                     cast.remove_actor(bullet)
 
             # pop if asteroid reaches end of screen and remove points
-            if asteroid_y > 590:
+            if asteroid_y == 600:
                 cast.remove_actor(asteroid)
                 self.lives_val = lives.lose_lives(self.lives_val)
             
