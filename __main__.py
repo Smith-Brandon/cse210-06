@@ -7,6 +7,7 @@ from turtle import *
 from greed.casting.actor import Actor
 from greed.casting.objects import Objects
 from greed.casting.cast import Cast
+from greed.casting.life import Life
 
 from greed.directing.director import Director
 
@@ -60,8 +61,17 @@ def main():
     player.set_position(position)
     cast.add_actor("player", player)
     
-   
-    
+    #create lives
+    x = int(MAX_X / 2)
+    y = int(MAX_Y / 2)
+    position = Point(830, 5)
+    lives = Life()
+    lives.set_text("Lives: ")
+    lives.set_font_size(FONT_SIZE)
+    lives.set_color(WHITE)
+    lives.set_position(position)
+    cast.add_actor("lives", lives)
+     
     for n in range(10):
 
         x = random.randint(1, COLS - 1)
