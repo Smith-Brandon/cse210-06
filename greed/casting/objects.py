@@ -16,7 +16,7 @@ class Objects(Actor):
         self._move_counter = 0
         self._velocity = Point(0, 0)
 
-    def rock_gem(self):
+    def asteroid_bullet(self):
         return self._point
     
     def get_item_type(self):

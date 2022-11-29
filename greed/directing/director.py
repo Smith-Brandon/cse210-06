@@ -30,6 +30,8 @@ class Director:
         self._video_service = video_service
         self.moved = 0
         self.score_val = 500
+        self.current_asteroids = 10 # Number of asteroids on the page (10 was set on main change this if main is modified)
+        self.total_asteroids = 40 # Max number of asteroids on current level
 
 
     def start_game(self, cast):
@@ -63,36 +65,39 @@ class Director:
         """
         score = cast.get_first_actor("score")
         player = cast.get_first_actor("player")
-        stones = cast.get_actors("stones")
-        gems = cast.get_actors("gems")
+        asteroids = cast.get_actors("asteroids")
+        bullets = cast.get_actors("bullets")
 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         player.move_next(max_x, max_y)
-
-        for stone in stones:
-            stone.fall()
-            p = stone.get_position()
-            y = p.get_y()
-            if y > 590:
-                cast.remove_actor(stone)
-            
-            if player.get_position().equals(stone.get_position()):
-                self.score_val -= 100
-                cast.remove_actor(stone)
-                break
                 
 
-        for gem in gems:
-            gem.fall()
-            p = gem.get_position()
-            y = p.get_y()
-            if y > 590:
-                cast.remove_actor(gem)
+        for asteroid in asteroids:
+            asteroid.fall()
+            asteroid_position = asteroid.get_position()
+            asteroid_y = asteroid_position.get_y()
+            
+            # Loop through all bullets 
+            for bullet in bullets:
+                bullet.move()
+                bullet_position = asteroid.get_position()
+                bullet_y = bullet_position.get_y()
 
-            if player._position.equals(gem._position):
+                # If projectile/bullet hit asteriod
+                if bullet_position == asteroid_position:
+                    cast.remove_actor(asteroid)
+                    cast.remove_actor(bullet)
+
+            # pop if asteroid reaches end of screen and remove points
+            if asteroid_y > 590:
+                cast.remove_actor(asteroid)
+                self.score_val -= 100
+            
+            # if player is hit by asteriod (can't remember if we are keeping this part or not)
+            if player._position.equals(asteroid._position):
                 self.score_val += 100
-                cast.remove_actor(gem)
+                cast.remove_actor(asteroid)
                 break
             
         
@@ -102,9 +107,11 @@ class Director:
         if player._move_counter == 0:
             self.moved += 1
         
-        if self.moved == 75:
+        if self.moved == 100:
             self.moved = 0
-            self.create_objects(cast)
+            # Only create more if current_asteroids is less than level total 
+            if self.current_asteroids < self.total_asteroids: 
+                self.create_objects(cast)
 
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
@@ -118,8 +125,17 @@ class Director:
         self._video_service.flush_buffer()
 
     def create_objects(self, cast):
-        DEFAULT_ARTIFACTS = random.randint(3, 8)
-        for n in range(DEFAULT_ARTIFACTS):
+        # Get random number of asteroids to create
+        new_asteroids = random.randint(1, 5)
+        # Check if new_asteroids is within the levels total_asteroid count
+        temp = self.current_asteroids + new_asteroids
+        if temp <= self.total_asteroids: # If within range add to asteroid counter and create objects
+            self.current_asteroids += new_asteroids
+        else: # If not get remaining number of asteroids and create that
+            new_asteroids = self.total_asteroids - self.current_asteroids
+            self.current_asteroids += new_asteroids
+
+        for n in range(new_asteroids):
 
             x = random.randint(1, 60 - 1)
             y = 0
@@ -131,23 +147,14 @@ class Director:
             b = random.randint(0, 255)
             color = Color(r, g, b)
 
-            # create the Gems
-            gems = Objects()
+            # create the asteroids
+            asteroids = Objects()
             position = Point(random.randint(2,898), 0)
-            gems.set_text("*")
-            gems.set_font_size(15)
-            gems.set_color(color)
-            gems.set_position(position)
-            cast.add_actor("gems", gems)
-
-            # create the Rocks
-            stones = Objects()
-            position = Point(random.randint(2,898), 0)
-            stones.set_text("o")
-            stones.set_color(color)
-            stones.set_font_size(15)
-            stones.set_position(position)
-            cast.add_actor("stones", stones)
+            asteroids.set_text("*")
+            asteroids.set_font_size(15)
+            asteroids.set_color(color)
+            asteroids.set_position(position)
+            cast.add_actor("asteroids", asteroids)
 
 
             
