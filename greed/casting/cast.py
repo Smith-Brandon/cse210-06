@@ -74,6 +74,9 @@ class Cast:
         elif(group == 'player'):
             if group in self._actors.keys():
                 result = self._actors[group][0]
+        elif(group == 'lives'):
+            if group in self._actors.keys():
+                result = self._actors[group][0]
         return result
 
     def remove_actor(self, actor):
