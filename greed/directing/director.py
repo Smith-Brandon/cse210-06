@@ -10,6 +10,7 @@ from greed.shared.point import Point
 from ..casting.objects import Objects
 from ..casting.life import Life
 
+
 class Director:
     """A person who directs the game. 
 
@@ -31,10 +32,11 @@ class Director:
         self._video_service = video_service
         self.moved = 0
         self.score_val = 500
-        self.current_asteroids = 10 # Number of asteroids on the page (10 was set on main change this if main is modified)
-        self.total_asteroids = 40 # Max number of asteroids on current level
-        self.lives_val = 3 #starting number of lives
-        self.keep_playing = True #Used for end game logic
+        # Number of asteroids on the page (10 was set on main change this if main is modified)
+        self.current_asteroids = 10
+        self.total_asteroids = 40  # Max number of asteroids on current level
+        self.lives_val = 3  # starting number of lives
+        self.keep_playing = True  # Used for end game logic
 
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -44,20 +46,20 @@ class Director:
         """
         self._video_service.open_window()
         while self._video_service.is_window_open():
-                self._get_inputs(cast)
-                self._do_updates(cast)
-                self._do_outputs(cast)
+            self._get_inputs(cast)
+            self._do_updates(cast)
+            self._do_outputs(cast)
         self._video_service.close_window()
 
     def _get_inputs(self, cast):
         """Gets directional input from the keyboard and applies it to the player.
-        
+
         Args:
             cast (Cast): The cast of actors.
         """
         player = cast.get_first_actor("player")
         velocity = self._keyboard_service.get_direction()
-        player.set_velocity(velocity)        
+        player.set_velocity(velocity)
 
     def _do_updates(self, cast):
         """Updates the player's position and resolves any collisions with objects.
@@ -71,18 +73,16 @@ class Director:
         bullets = cast.get_actors("bullets")
         lives = cast.get_first_actor("lives")
 
-
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         player.move_next(max_x, max_y)
-                
 
         for asteroid in asteroids:
             asteroid.fall()
             asteroid_position = asteroid.get_position()
             asteroid_y = asteroid_position.get_y()
-            
-            # Loop through all bullets 
+
+            # Loop through all bullets
             for bullet in bullets:
                 bullet.move()
                 bullet_position = asteroid.get_position()
@@ -90,21 +90,21 @@ class Director:
 
                 # If projectile/bullet hit asteriod
                 if bullet_position == asteroid_position:
-                    cast.remove_actor(asteroid)
-                    cast.remove_actor(bullet)
+                    cast.remove_actor("asteroids", asteroid)
+                    cast.remove_actor("bullets", bullet)
 
             # pop if asteroid reaches end of screen and remove points
             if asteroid_y == 600:
-                cast.remove_actor(asteroid)
+                cast.remove_actor("asteroids", asteroid)
+                asteroid.set_text("")
                 self.lives_val = lives.lose_lives(self.lives_val)
-            
+
             # if player is hit by asteriod (can't remember if we are keeping this part or not)
             if player._position.equals(asteroid._position):
                 self.score_val += 100
-                cast.remove_actor(asteroid)
+                cast.remove_actor("asteroids", asteroid)
                 break
-            
-        
+
         score.set_text("Player Score: " + str(self.score_val))
         lives.set_text("Lives: " + str(self.lives_val))
 
@@ -112,17 +112,15 @@ class Director:
             self.keep_playing = False
 
         self._test_game_over(cast)
-    
-    
 
         # Create more
         if player._move_counter == 0:
             self.moved += 1
-        
+
         if self.moved == 100:
             self.moved = 0
-            # Only create more if current_asteroids is less than level total 
-            if self.current_asteroids < self.total_asteroids: 
+            # Only create more if current_asteroids is less than level total
+            if self.current_asteroids < self.total_asteroids:
                 self.create_objects(cast)
 
     def _do_outputs(self, cast):
@@ -141,9 +139,9 @@ class Director:
         new_asteroids = random.randint(1, 5)
         # Check if new_asteroids is within the levels total_asteroid count
         temp = self.current_asteroids + new_asteroids
-        if temp <= self.total_asteroids: # If within range add to asteroid counter and create objects
+        if temp <= self.total_asteroids:  # If within range add to asteroid counter and create objects
             self.current_asteroids += new_asteroids
-        else: # If not get remaining number of asteroids and create that
+        else:  # If not get remaining number of asteroids and create that
             new_asteroids = self.total_asteroids - self.current_asteroids
             self.current_asteroids += new_asteroids
 
@@ -161,7 +159,7 @@ class Director:
 
             # create the asteroids
             asteroids = Objects()
-            position = Point(random.randint(2,898), 0)
+            position = Point(random.randint(2, 898), 0)
             asteroids.set_text("*")
             asteroids.set_font_size(15)
             asteroids.set_color(color)
@@ -169,7 +167,6 @@ class Director:
             cast.add_actor("asteroids", asteroids)
 
     def _test_game_over(self, cast):
-
 
         if self.keep_playing == False:
             x = int(900 / 2)
@@ -180,5 +177,3 @@ class Director:
             message.set_text("GAME OVER!")
             message.set_position(position)
             cast.add_actor("messages", message)
-
-

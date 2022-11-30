@@ -18,8 +18,6 @@ from greed.shared.color import Color
 from greed.shared.point import Point
 
 
-
-
 FRAME_RATE = 60
 MAX_X = 900
 MAX_Y = 600
@@ -32,15 +30,12 @@ WHITE = Color(255, 255, 255)
 DEFAULT_ARTIFACTS = random.randint(9, 15)
 
 
-
 def main():
-    
+
     # create the cast
     cast = Cast()
-    
+
     # create the score
-    x = int(MAX_X / 2)
-    y = int(MAX_Y / 2)
     position = Point(5, 5)
     score = Objects()
     score.set_text("Player Score: ")
@@ -48,10 +43,8 @@ def main():
     score.set_color(WHITE)
     score.set_position(position)
     cast.add_actor("score", score)
-    
+
     # create the player
-    x = int(MAX_X / 2)
-    y = int(MAX_Y / 2)
     position = Point(450, 575)
 
     player = Objects()
@@ -60,8 +53,8 @@ def main():
     player.set_color(WHITE)
     player.set_position(position)
     cast.add_actor("player", player)
-    
-    #create lives
+
+    # create lives
     x = int(MAX_X / 2)
     y = int(MAX_Y / 2)
     position = Point(830, 5)
@@ -71,12 +64,12 @@ def main():
     lives.set_color(WHITE)
     lives.set_position(position)
     cast.add_actor("lives", lives)
-     
+
     for n in range(10):
 
         x = random.randint(1, COLS - 1)
         #y = random.randint(1, ROWS - 1)
-        y = random.randint(1, 20) # Start at half page
+        y = random.randint(1, 20)  # Start at half page
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
 
@@ -94,8 +87,6 @@ def main():
         asteroids.set_position(position)
         cast.add_actor("asteroids", asteroids)
 
-
-    
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
