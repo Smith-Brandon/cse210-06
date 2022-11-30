@@ -2,6 +2,7 @@ from ..shared.color import Color
 from ..casting.objects import Objects
 from ..shared.point import Point
 
+
 class Cast:
     """A collection of actors.
 
@@ -15,23 +16,23 @@ class Cast:
     def __init__(self):
         """Constructs a new Actor."""
         self._actors = {}
-        
+
     def add_actor(self, group, actor):
         """Adds an actor to the given group.
-        
+
         Args:
             group (string): The name of the group.
             actor (Actor): The actor to add.
         """
         if not group in self._actors.keys():
             self._actors[group] = []
-            
+
         if not actor in self._actors[group]:
             self._actors[group].append(actor)
 
     def get_actors(self, group):
         """Gets the actors in the given group.
-        
+
         Args:
             group (string): The name of the group.
 
@@ -42,10 +43,10 @@ class Cast:
         if group in self._actors.keys():
             results = self._actors[group].copy()
         return results
-    
+
     def get_all_actors(self):
         """Gets all of the actors in the cast.
-        
+
         Returns:
             List: All of the actors in the cast.
         """
@@ -55,47 +56,53 @@ class Cast:
         for group in self._actors:
             results.extend(self._actors[group])
 
-
         return results
 
     def get_first_actor(self, group):
         """Gets the first actor in the given group but only returns player or score.
-        
+
         Args:
             group (string): The name of the group.
-            
+
         Returns:
             List: The first actor in the group.
         """
         result = None
-        if(group == 'score'):
+        if (group == 'score'):
             if group in self._actors.keys():
                 result = self._actors[group][0]
-        elif(group == 'player'):
+        elif (group == 'player'):
             if group in self._actors.keys():
                 result = self._actors[group][0]
-        elif(group == 'lives'):
+        elif (group == 'lives'):
             if group in self._actors.keys():
                 result = self._actors[group][0]
         return result
 
-    def remove_actor(self, actor):
+    # def remove_actor(self, actor):
+    #     """Removes an actor from the given group.
+
+    #     Args:
+    #         group (string): The name of the group.
+    #         actor (Actor): The actor to remove.
+    #     """
+    #     '''If actor group is asteroid or bullet'''
+    #     actors = self.get_all_actors()
+    #     countbefore = len(actors)
+    #     index = actors.index(actor)
+    #     actors.pop(index)
+    #     countafter = len(actors)
+    #     #self._actors[group].remove(actor)
+    #     for item in self._actors:
+    #         if(item == actor):
+    #             actors.pop(index) # line just for testing
+
+    def remove_actor(self, group, actor):
         """Removes an actor from the given group.
-        
+
         Args:
             group (string): The name of the group.
             actor (Actor): The actor to remove.
         """
-        '''If actor group is asteroid or bullet'''
-        actors = self.get_all_actors()
-        countbefore = len(actors)
-        index = actors.index(actor)
-        actors.pop(index)
-        countafter = len(actors)
-        #self._actors[group].remove(actor)
-        for item in self._actors:
-            if(item == actor):
-                actors.pop(index) # line just for testing
-
-            
-
+        if group in self._actors:
+            self._actors[group].remove(actor)
