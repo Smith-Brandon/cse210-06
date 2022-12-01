@@ -22,6 +22,7 @@ MAX_X = 900
 MAX_Y = 600
 CELL_SIZE = 15
 FONT_SIZE = 15
+BULLET_SIZE = 50
 COLS = 60
 ROWS = 40
 CAPTION = "Earth Defender"
@@ -86,10 +87,19 @@ def main():
         asteroids.set_position(position)
         cast.add_actor("asteroids", asteroids)
 
+        # Creation of bullet objects with text '^'
+        # Position and color not set yet
+    for i in range(50):
+        bullets = Objects()
+        bullets.set_text("^")
+        bullets.set_font_size(BULLET_SIZE)
+        cast.add_actor("bullets", bullets)
+        
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
     director = Director(keyboard_service, video_service)
+    keyboard_service.add_player(cast, player)
     director.start_game(cast)
 
 

@@ -85,14 +85,14 @@ class Director:
 
             # Loop through all bullets
             for bullet in bullets:
-                bullet.move()
-                bullet_position = asteroid.get_position()
-                bullet_y = bullet_position.get_y()
+                 bullet.shoot()
+                 bullet_position = asteroid.get_position()
+                 bullet_y = bullet_position.get_y()
 
-                # If projectile/bullet hit asteriod
-                if bullet_position == asteroid_position:
-                    cast.remove_actor("asteroids", asteroid)
-                    cast.remove_actor("bullets", bullet)
+            #     # If projectile/bullet hit asteriod
+                #  if bullet_position == asteroid_position:
+                #      cast.remove_actor("asteroids", asteroid)
+                #      cast.remove_actor("bullets", bullets)
 
             # pop if asteroid reaches end of screen and remove points
             if asteroid_y == 600:
