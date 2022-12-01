@@ -4,6 +4,7 @@ from tkinter.tix import ROW
 from turtle import *
 
 
+from constants import *
 from greed.casting.actor import Actor
 from greed.casting.objects import Objects
 from greed.casting.cast import Cast
@@ -17,18 +18,6 @@ from greed.services.video_service import VideoService
 from greed.shared.color import Color
 from greed.shared.point import Point
 
-
-FRAME_RATE = 60
-MAX_X = 900
-MAX_Y = 600
-CELL_SIZE = 15
-FONT_SIZE = 15
-BULLET_SIZE = 50
-COLS = 60
-ROWS = 40
-CAPTION = "Greed"
-WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = random.randint(9, 15)
 
 
 def main():
@@ -50,7 +39,7 @@ def main():
 
     player = Objects()
     player.set_text("#")
-    player.set_font_size(FONT_SIZE)
+    player.set_font_size(PLAYER_SIZE)
     player.set_color(WHITE)
     player.set_position(position)
     cast.add_actor("player", player)
@@ -83,7 +72,7 @@ def main():
         asteroids = Objects()
         #position = Point(random.randint(2,898), 0)
         asteroids.set_text("*")
-        asteroids.set_font_size(FONT_SIZE)
+        asteroids.set_font_size(ASTROIDS_SIZE)
         asteroids.set_color(color)
         asteroids.set_position(position)
         cast.add_actor("asteroids", asteroids)
