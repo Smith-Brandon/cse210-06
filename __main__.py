@@ -4,18 +4,17 @@ from tkinter.tix import ROW
 from turtle import *
 
 
-from greed.casting.actor import Actor
-from greed.casting.objects import Objects
-from greed.casting.cast import Cast
-from greed.casting.life import Life
+from earth_defender.casting.objects import Objects
+from earth_defender.casting.cast import Cast
+from earth_defender.casting.life import Life
 
-from greed.directing.director import Director
+from earth_defender.directing.director import Director
 
-from greed.services.keyboard_service import KeyboardService
-from greed.services.video_service import VideoService
+from earth_defender.services.keyboard_service import KeyboardService
+from earth_defender.services.video_service import VideoService
 
-from greed.shared.color import Color
-from greed.shared.point import Point
+from earth_defender.shared.color import Color
+from earth_defender.shared.point import Point
 
 
 FRAME_RATE = 60
@@ -25,7 +24,7 @@ CELL_SIZE = 15
 FONT_SIZE = 15
 COLS = 60
 ROWS = 40
-CAPTION = "Greed"
+CAPTION = "Earth Defender"
 WHITE = Color(255, 255, 255)
 DEFAULT_ARTIFACTS = random.randint(9, 15)
 
