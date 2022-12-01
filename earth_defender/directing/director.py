@@ -4,9 +4,9 @@ import random
 from tkinter.tix import ROW
 from turtle import *
 
-from greed.casting.actor import Actor
-from greed.shared.color import Color
-from greed.shared.point import Point
+from ..casting.actor import Actor
+from ..shared.color import Color
+from ..shared.point import Point
 from ..casting.objects import Objects
 from ..casting.life import Life
 
