@@ -1,7 +1,12 @@
 from ..shared.point import Point
+from greed.casting.objects import Objects
+from greed.shared.color import Color
+from greed.shared.point import Point
 import pyray
 
-
+BULLET_SIZE = 30
+WHITE = Color(255, 255, 255)
+COUNTER = 0
 
 class KeyboardService:
     """Detects player input. 
@@ -20,6 +25,35 @@ class KeyboardService:
             cell_size (int): The size of a cell in the display grid.
         """
         self._cell_size = cell_size
+        self._counter = COUNTER
+
+    # Passing the player and cast objects from Main to keyboard_service
+    def add_player(self, cast, player):
+            self._cast = cast
+            self._player = player
+
+    # Move the bullet position above the player
+    def move_position(self, position):
+        pos = position
+        x = pos.get_x()
+        y = pos.get_y()
+        y = y - 10
+        return Point(x, y)
+
+# Get the bullets list from cast
+# Grab a bullet from the bullets list at index self._counter
+# Set the color, and position of the bullet
+    def create_bullet(self):
+        bullets = self._cast.get_actors("bullets")
+        bullet = bullets[self._counter]
+        self._counter = self._counter + 1
+        
+        bullet.set_color(WHITE)
+        bullet.set_position(self.move_position(self._player.get_position()))
+
+        if self._counter == 49:
+            self._counter = 0
+
 
     def get_direction(self):
         """Gets the selected direction based on the currently pressed keys.
@@ -35,6 +69,10 @@ class KeyboardService:
         
         if pyray.is_key_down(pyray.KEY_RIGHT):
             dx = 1
+        
+        # If space is pressed, call the create_bullet function
+        if pyray.is_key_pressed(pyray.KEY_SPACE):
+            self.create_bullet()
         '''
         if pyray.is_key_down(pyray.KEY_UP):
             dy = -1
