@@ -3,10 +3,9 @@ from ..casting.objects import Objects
 from ..shared.color import Color
 from ..shared.point import Point
 import pyray
+from constants import *
 
-BULLET_SIZE = 30
-WHITE = Color(255, 255, 255)
-COUNTER = 0
+
 
 
 class KeyboardService:

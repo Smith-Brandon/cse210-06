@@ -4,9 +4,11 @@ from tkinter.tix import ROW
 from turtle import *
 
 
-from earth_defender.casting.objects import Objects
-from earth_defender.casting.cast import Cast
-from earth_defender.casting.life import Life
+from constants import *
+from greed.casting.actor import Actor
+from greed.casting.objects import Objects
+from greed.casting.cast import Cast
+from greed.casting.life import Life
 
 from earth_defender.directing.director import Director
 
@@ -15,19 +17,6 @@ from earth_defender.services.video_service import VideoService
 
 from earth_defender.shared.color import Color
 from earth_defender.shared.point import Point
-
-
-FRAME_RATE = 60
-MAX_X = 900
-MAX_Y = 600
-CELL_SIZE = 15
-FONT_SIZE = 15
-BULLET_SIZE = 50
-COLS = 60
-ROWS = 40
-CAPTION = "Earth Defender"
-WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = random.randint(9, 15)
 
 
 def main():
@@ -49,7 +38,7 @@ def main():
 
     player = Objects()
     player.set_text("#")
-    player.set_font_size(FONT_SIZE)
+    player.set_font_size(PLAYER_SIZE)
     player.set_color(WHITE)
     player.set_position(position)
     cast.add_actor("player", player)
@@ -82,7 +71,7 @@ def main():
         asteroids = Objects()
         #position = Point(random.randint(2,898), 0)
         asteroids.set_text("*")
-        asteroids.set_font_size(FONT_SIZE)
+        asteroids.set_font_size(ASTROIDS_SIZE)
         asteroids.set_color(color)
         asteroids.set_position(position)
         cast.add_actor("asteroids", asteroids)
@@ -94,7 +83,7 @@ def main():
         bullets.set_text("^")
         bullets.set_font_size(BULLET_SIZE)
         cast.add_actor("bullets", bullets)
-        
+
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
