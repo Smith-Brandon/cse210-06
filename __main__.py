@@ -5,10 +5,10 @@ from turtle import *
 
 
 from constants import *
-from greed.casting.actor import Actor
-from greed.casting.objects import Objects
-from greed.casting.cast import Cast
-from greed.casting.life import Life
+from earth_defender.casting.actor import Actor
+from earth_defender.casting.objects import Objects
+from earth_defender.casting.cast import Cast
+from earth_defender.casting.life import Life
 
 from earth_defender.directing.director import Director
 
