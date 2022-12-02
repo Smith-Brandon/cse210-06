@@ -4,9 +4,9 @@ import random
 from tkinter.tix import ROW
 from turtle import *
 
-from greed.casting.actor import Actor
-from greed.shared.color import Color
-from greed.shared.point import Point
+from ..casting.actor import Actor
+from ..shared.color import Color
+from ..shared.point import Point
 from ..casting.objects import Objects
 from ..casting.life import Life
 
@@ -37,6 +37,7 @@ class Director:
         self.total_asteroids = 40  # Max number of asteroids on current level
         self.lives_val = 3  # starting number of lives
         self.keep_playing = True  # Used for end game logic
+        self.speed = 1  # Speed of asteroids
 
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -99,19 +100,13 @@ class Director:
                 asteroid.set_text("")
                 self.lives_val = lives.lose_lives(self.lives_val)
 
-            # if player is hit by asteriod (can't remember if we are keeping this part or not)
-            if player._position.equals(asteroid._position):
-                self.score_val += 100
-                cast.remove_actor("asteroids", asteroid)
-                break
-
         score.set_text("Player Score: " + str(self.score_val))
         lives.set_text("Lives: " + str(self.lives_val))
 
         if self.lives_val == 0:
             self.keep_playing = False
 
-        self._test_game_over(cast)
+        self._game_over(cast)
 
         # Create more
         if player._move_counter == 0:
@@ -166,14 +161,36 @@ class Director:
             asteroids.set_position(position)
             cast.add_actor("asteroids", asteroids)
 
-    def _test_game_over(self, cast):
+    def _game_over(self, cast):
+        """Ends the game if the player has no lives left."""
 
+        # Checks to see that the game has ended
         if self.keep_playing == False:
-            x = int(900 / 2)
+            # Sets the postion of the game over text
+            x = int(900 / 2.3)
             y = int(600 / 2)
             position = Point(x, y)
 
+            # Creates the game over text
             message = Actor()
-            message.set_text("GAME OVER!")
+            message.set_text("    GAME OVER!\nPress 'y' to play again!")
             message.set_position(position)
             cast.add_actor("messages", message)
+            # Runs through setting the game back up
+            if self._keyboard_service.get_play_again():
+                self.keep_playing = True
+                self.lives_val = 3
+                self.score_val = 500
+                self.total_asteroids = 40
+                self.current_asteroids = 10
+                self.speed = 1
+                for message in cast.get_actors("messages"):
+                    cast.remove_actor("messages", message)
+                    message.set_text("")
+                for asteroid in cast.get_actors("asteroids"):
+                    cast.remove_actor("asteroids", asteroid)
+                    asteroid.set_text("")
+                for bullet in cast.get_actors("bullets"):
+                    cast.remove_actor("bullets", bullet)
+                    bullet.set_text("")
+                self.start_game(cast)

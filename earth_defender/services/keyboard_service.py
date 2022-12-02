@@ -1,15 +1,16 @@
 from ..shared.point import Point
-from greed.casting.objects import Objects
-from greed.shared.color import Color
-from greed.shared.point import Point
+from ..casting.objects import Objects
+from ..shared.color import Color
+from ..shared.point import Point
 import pyray
 from constants import *
 
 
 
+
 class KeyboardService:
     """Detects player input. 
-    
+
     The responsibility of a KeyboardService is to detect player key presses and translate them into 
     a point representing a direction.
 
@@ -17,9 +18,9 @@ class KeyboardService:
         cell_size (int): For scaling directional input to a grid.
     """
 
-    def __init__(self, cell_size = 1):
+    def __init__(self, cell_size=1):
         """Constructs a new KeyboardService using the specified cell size.
-        
+
         Args:
             cell_size (int): The size of a cell in the display grid.
         """
@@ -28,8 +29,8 @@ class KeyboardService:
 
     # Passing the player and cast objects from Main to keyboard_service
     def add_player(self, cast, player):
-            self._cast = cast
-            self._player = player
+        self._cast = cast
+        self._player = player
 
     # Move the bullet position above the player
     def move_position(self, position):
@@ -46,13 +47,12 @@ class KeyboardService:
         bullets = self._cast.get_actors("bullets")
         bullet = bullets[self._counter]
         self._counter = self._counter + 1
-        
+
         bullet.set_color(WHITE)
         bullet.set_position(self.move_position(self._player.get_position()))
 
         if self._counter == 49:
             self._counter = 0
-
 
     def get_direction(self):
         """Gets the selected direction based on the currently pressed keys.
@@ -65,10 +65,10 @@ class KeyboardService:
 
         if pyray.is_key_down(pyray.KEY_LEFT):
             dx = -1
-        
+
         if pyray.is_key_down(pyray.KEY_RIGHT):
             dx = 1
-        
+
         # If space is pressed, call the create_bullet function
         if pyray.is_key_pressed(pyray.KEY_SPACE):
             self.create_bullet()
@@ -81,5 +81,19 @@ class KeyboardService:
         '''
         direction = Point(dx, dy)
         direction = direction.scale(self._cell_size)
-        
+
         return direction
+
+    def get_play_again(self):
+        """Allows the player specify whether to play again.
+
+        Returns:
+            bool: True if the player wants to play again, False otherwise.
+        """
+        was_pressed = False
+        if pyray.is_key_released(pyray.KEY_Y):
+            was_pressed = True
+        else:
+            was_pressed = False
+
+        return was_pressed

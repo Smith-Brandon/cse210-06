@@ -5,19 +5,18 @@ from turtle import *
 
 
 from constants import *
-from greed.casting.actor import Actor
-from greed.casting.objects import Objects
-from greed.casting.cast import Cast
-from greed.casting.life import Life
+from earth_defender.casting.actor import Actor
+from earth_defender.casting.objects import Objects
+from earth_defender.casting.cast import Cast
+from earth_defender.casting.life import Life
 
-from greed.directing.director import Director
+from earth_defender.directing.director import Director
 
-from greed.services.keyboard_service import KeyboardService
-from greed.services.video_service import VideoService
+from earth_defender.services.keyboard_service import KeyboardService
+from earth_defender.services.video_service import VideoService
 
-from greed.shared.color import Color
-from greed.shared.point import Point
-
+from earth_defender.shared.color import Color
+from earth_defender.shared.point import Point
 
 
 def main():
@@ -84,7 +83,7 @@ def main():
         bullets.set_text("^")
         bullets.set_font_size(BULLET_SIZE)
         cast.add_actor("bullets", bullets)
-        
+
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)

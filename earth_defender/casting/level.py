@@ -12,3 +12,8 @@ class Level(Actor):
     the number of astroids that will fall to earth in order
     to advance to the next level.
     '''
+
+    def __init__(self):
+        super().__init__()
+        self._level = 1
+        self._speed = 1
