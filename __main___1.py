@@ -1,11 +1,8 @@
-import os
 import random
-from tkinter.tix import ROW
 from turtle import *
 
 
 from constants import *
-from earth_defender.casting.actor import Actor
 from earth_defender.casting.objects import Objects
 from earth_defender.casting.cast import Cast
 from earth_defender.casting.life import Life

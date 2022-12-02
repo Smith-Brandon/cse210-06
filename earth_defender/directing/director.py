@@ -3,7 +3,7 @@ import os
 import random
 from tkinter.tix import ROW
 from turtle import *
-
+from constants import *
 from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
@@ -156,7 +156,7 @@ class Director:
             asteroids = Objects()
             position = Point(random.randint(2, 898), 0)
             asteroids.set_text("*")
-            asteroids.set_font_size(15)
+            asteroids.set_font_size(ASTROIDS_SIZE)
             asteroids.set_color(color)
             asteroids.set_position(position)
             cast.add_actor("asteroids", asteroids)
