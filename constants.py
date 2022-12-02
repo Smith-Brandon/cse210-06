@@ -1,8 +1,5 @@
 import random
-from greed.shared.color import Color
-
-
-
+from earth_defender.shared.color import Color
 
 
 """Main Constants"""
