@@ -8,7 +8,8 @@ from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
 from ..casting.objects import Objects
-from ..casting.life import Life
+from ..casting.life import Life 
+from constants import *
 
 
 class Director:
@@ -38,6 +39,7 @@ class Director:
         self.lives_val = 3  # starting number of lives
         self.keep_playing = True  # Used for end game logic
         self.speed = 1  # Speed of asteroids
+        
 
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -61,6 +63,7 @@ class Director:
         player = cast.get_first_actor("player")
         velocity = self._keyboard_service.get_direction()
         player.set_velocity(velocity)
+        bullets = self._keyboard_service.make_bullet(cast)
 
     def _do_updates(self, cast):
         """Updates the player's position and resolves any collisions with objects.
@@ -73,6 +76,7 @@ class Director:
         asteroids = cast.get_actors("asteroids")
         bullets = cast.get_actors("bullets")
         lives = cast.get_first_actor("lives")
+        
 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
@@ -84,10 +88,10 @@ class Director:
             asteroid_y = asteroid_position.get_y()
 
             # Loop through all bullets
-            for bullet in bullets:
-                 bullet.shoot()
-                 bullet_position = asteroid.get_position()
-                 bullet_y = bullet_position.get_y()
+            # for bullet in bullets:
+            #      bullet.shoot()
+            #      bullet_position = asteroid.get_position()
+            #      bullet_y = bullet_position.get_y()
 
             #     # If projectile/bullet hit asteriod
                 #  if bullet_position == asteroid_position:
@@ -99,6 +103,9 @@ class Director:
                 cast.remove_actor("asteroids", asteroid)
                 asteroid.set_text("")
                 self.lives_val = lives.lose_lives(self.lives_val)
+
+        for bullet in bullets:
+            bullet.shoot()
 
         score.set_text("Player Score: " + str(self.score_val))
         lives.set_text("Lives: " + str(self.lives_val))
@@ -156,7 +163,7 @@ class Director:
             asteroids = Objects()
             position = Point(random.randint(2, 898), 0)
             asteroids.set_text("*")
-            asteroids.set_font_size(15)
+            asteroids.set_font_size(ASTROIDS_SIZE)
             asteroids.set_color(color)
             asteroids.set_position(position)
             cast.add_actor("asteroids", asteroids)

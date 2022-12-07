@@ -9,6 +9,7 @@ from earth_defender.casting.actor import Actor
 from earth_defender.casting.objects import Objects
 from earth_defender.casting.cast import Cast
 from earth_defender.casting.life import Life
+from earth_defender.casting.bullet import Bullet
 
 from earth_defender.directing.director import Director
 
@@ -78,11 +79,11 @@ def main():
 
         # Creation of bullet objects with text '^'
         # Position and color not set yet
-    for i in range(50):
-        bullets = Objects()
-        bullets.set_text("^")
-        bullets.set_font_size(BULLET_SIZE)
-        cast.add_actor("bullets", bullets)
+    # for i in range(50):
+    #     bullets = Bullet()
+    #     bullets.set_text("^")
+    #     bullets.set_font_size(BULLET_SIZE)
+    #     cast.add_actor("bullets", bullets)
 
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
