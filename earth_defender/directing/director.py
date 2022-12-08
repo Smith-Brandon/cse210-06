@@ -3,7 +3,7 @@ import os
 import random
 from tkinter.tix import ROW
 from turtle import *
-
+from constants import *
 from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
