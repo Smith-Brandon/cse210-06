@@ -6,8 +6,7 @@ from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
 from ..casting.objects import Objects
-from ..casting.life import Life 
-from ..casting.level import Level
+
 
 
 
