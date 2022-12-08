@@ -1,14 +1,12 @@
 from ast import parse
-import os
 import random
-from tkinter.tix import ROW
 from turtle import *
 from constants import *
 from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
 from ..casting.objects import Objects
-from ..casting.life import Life
+
 
 
 class Director:
