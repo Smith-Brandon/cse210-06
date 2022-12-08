@@ -1,6 +1,4 @@
-from ..shared.color import Color
-from ..casting.objects import Objects
-from ..shared.point import Point
+
 
 
 class Cast:
