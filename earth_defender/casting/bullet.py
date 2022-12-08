@@ -1,8 +1,4 @@
 from .objects import Objects
-from .cast import Cast
-
-from ..shared.point import Point
-
 from constants import *
 
 '''Bullet class performs all things needed to make shoot and track collisions of a bullet'''
