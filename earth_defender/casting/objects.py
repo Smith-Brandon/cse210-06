@@ -33,9 +33,5 @@ class Objects(Actor):
 
 # Move the bullet one space up
     def shoot(self):
-        if self._move_counter < 2:
-            self._move_counter += 1 
-        else:
-            self._position.y -= 1
-            self._move_counter = 0
+        self._position.y -= 8
 

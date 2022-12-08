@@ -1,4 +1,4 @@
-from actor import Actor
+from ..casting.actor import Actor
 
 # Add game reset/next level (method in director)
 # - reset game when astroids are gone
@@ -17,3 +17,9 @@ class Level(Actor):
         super().__init__()
         self._level = 1
         self._speed = 1
+
+    def level_up(self):
+        self._level += 1
+        
+        return self._level
+        
