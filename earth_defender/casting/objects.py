@@ -33,5 +33,5 @@ class Objects(Actor):
 
 # Move the bullet one space up
     def shoot(self):
-        self._position.y -= 16
+        self._position.y -= 8
 

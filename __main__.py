@@ -9,7 +9,7 @@ from earth_defender.casting.actor import Actor
 from earth_defender.casting.objects import Objects
 from earth_defender.casting.cast import Cast
 from earth_defender.casting.life import Life
-from earth_defender.casting.bullet import Bullet
+from earth_defender.casting.level import Level
 
 from earth_defender.directing.director import Director
 
@@ -26,13 +26,22 @@ def main():
     cast = Cast()
 
     # create the score
-    position = Point(5, 5)
+    position = Point(425, 5)
     score = Objects()
-    score.set_text("Player Score: ")
+    score.set_text("Score: ")
     score.set_font_size(FONT_SIZE)
     score.set_color(WHITE)
     score.set_position(position)
     cast.add_actor("score", score)
+
+    # create level
+    position = Point(5, 5)
+    level = Level()
+    level.set_font_size(FONT_SIZE)
+    level.set_color(WHITE)
+    level.set_position(position)
+    cast.add_actor("level", level)
+
 
     # create the player
     position = Point(450, 575)
@@ -78,9 +87,9 @@ def main():
         cast.add_actor("asteroids", asteroids)
 
         # Creation of bullet objects with text '^'
-        # Position and color not set yet
+    #     # Position and color not set yet
     # for i in range(50):
-    #     bullets = Bullet()
+    #     bullets = Objects()
     #     bullets.set_text("^")
     #     bullets.set_font_size(BULLET_SIZE)
     #     cast.add_actor("bullets", bullets)
