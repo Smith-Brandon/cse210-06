@@ -18,7 +18,7 @@ BULLET_SIZE = 50
 ASTROIDS_SIZE = 20
 
 
-'''Keyboard_services Constants'''
+"""Keyboard_services Constants"""
 BULLET_SIZE = 30
 WHITE = Color(255, 255, 255)
 # COUNTER = 0

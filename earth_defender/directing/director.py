@@ -1,4 +1,3 @@
-from ast import parse
 import random
 from turtle import *
 from constants import *
@@ -6,8 +5,6 @@ from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
 from ..casting.objects import Objects
-
-
 
 
 class Director:
@@ -39,7 +36,6 @@ class Director:
         self.speed = 1  # Speed of asteroids
         self.level = 1
         self.current_level = 1
-        
 
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -55,6 +51,11 @@ class Director:
         self._video_service.close_window()
 
     def reset_game(self, cast):
+        """Resets the game using the given cast. Runs the main game loop.
+
+        Args:
+            cast (Cast): The cast of actors.
+        """
         level = cast.get_first_actor("level")
         level.set_text('Level ' + str(self.level))
         self.total_asteroids = self.total_asteroids + self.level * 10
@@ -66,6 +67,7 @@ class Director:
 
     def _get_inputs(self, cast):
         """Gets directional input from the keyboard and applies it to the player.
+        Also gets the player's bullets and adjusts the level.
 
         Args:
             cast (Cast): The cast of actors.
@@ -74,10 +76,9 @@ class Director:
         velocity = self._keyboard_service.get_direction()
         player.set_velocity(velocity)
         bullets = self._keyboard_service.make_bullet(cast)
-        
+
         level = cast.get_first_actor("level")
         level.set_text('Level ' + str(self.level))
-
 
     def _do_updates(self, cast):
         """Updates the player's position and resolves any collisions with objects.
@@ -99,7 +100,7 @@ class Director:
         for bullet in bullets:
             bullet.shoot()
             bullet_position = bullet.get_position()
-            bullet_y = bullet_position.get_y() 
+            bullet_y = bullet_position.get_y()
 
             if bullet_y == 0:
                 cast.remove_actor("bullets", bullet)
@@ -113,7 +114,7 @@ class Director:
                 bullet_position = bullet.get_position()
 
                 # drop bullets when they leave the screen
-                bullet_y = bullet_position.get_y() 
+                bullet_y = bullet_position.get_y()
                 bullet_x = bullet_position.get_x()
                 astroid_x = asteroid_position.get_x()
 
@@ -125,9 +126,6 @@ class Director:
                         cast.remove_actor("bullets", bullet)
                         cast.remove_actor("asteroids", asteroid)
                         self.score_val += 100
-
-
-                    
 
             # Loop through all bullets
             # for bullet in bullets:
@@ -162,7 +160,7 @@ class Director:
             self.moved = 0
             # Only create more if current_asteroids is less than level total
             if self.current_asteroids < self.total_asteroids:
-                self.create_objects(cast)   
+                self.create_objects(cast)
 
         if self.level > self.current_level:
             self.current_level += 1
@@ -184,6 +182,11 @@ class Director:
         self._video_service.flush_buffer()
 
     def create_objects(self, cast):
+        """Creates asteroids and adds them to the cast.
+
+        Args:
+            cast (Cast): The cast of actors.
+        """
         # Get random number of asteroids to create
         new_asteroids = random.randint(1, 5)
         # Check if new_asteroids is within the levels total_asteroid count
@@ -216,8 +219,11 @@ class Director:
             cast.add_actor("asteroids", asteroids)
 
     def _game_over(self, cast):
-        """Ends the game if the player has no lives left."""
+        """Ends the game if the player has no lives left.
 
+        Args:
+            cast (Cast): The cast of actors.
+        """
         # Checks to see that the game has ended
         if self.keep_playing == False:
             # Sets the postion of the game over text

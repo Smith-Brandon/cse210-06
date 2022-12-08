@@ -39,7 +39,6 @@ def main():
     level.set_position(position)
     cast.add_actor("level", level)
 
-
     # create the player
     position = Point(450, 575)
 
@@ -82,14 +81,6 @@ def main():
         asteroids.set_color(color)
         asteroids.set_position(position)
         cast.add_actor("asteroids", asteroids)
-
-        # Creation of bullet objects with text '^'
-    #     # Position and color not set yet
-    # for i in range(50):
-    #     bullets = Objects()
-    #     bullets.set_text("^")
-    #     bullets.set_font_size(BULLET_SIZE)
-    #     cast.add_actor("bullets", bullets)
 
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)

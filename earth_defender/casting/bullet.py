@@ -1,18 +1,26 @@
 from .objects import Objects
 from constants import *
 
-'''Bullet class performs all things needed to make shoot and track collisions of a bullet'''
 
 class Bullet(Objects):
+    """Bullet class performs all things needed to make, 
+    shoot, and track collisions of a bullet
+    """
 
     def __init__(self):
-        super().__init__()  
+        """Constructs a new Bullet."""
+        super().__init__()
 
-# Get the bullets list from cast
-# Grab a bullet from the bullets list at index self._counter
-# Set the color, and position of the bullet
+    # Get the bullets list from cast
+    # Grab a bullet from the bullets list at index self._counter
+    # Set the color, and position of the bullet
     def create_bullet(self, cast):
-        '''Creates bullets and sets their position to the players current position'''
+        """Creates bullets and sets their position equal to the 
+        player's current position
+
+        Args:
+            cast (Cast): The cast of all actors.
+        """
         new_bullet = Bullet()
         new_bullet.set_text("^")
         new_bullet.set_font_size(BULLET_SIZE)
@@ -40,7 +48,5 @@ class Bullet(Objects):
     #         x = position.get_x()
     #         y = position.get_y()
     #         new_position = Point(x, y - 1)
-            
-    #         bullet.set_position(new_position)
-            
 
+    #         bullet.set_position(new_position)
