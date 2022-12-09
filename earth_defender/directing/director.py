@@ -33,7 +33,7 @@ class Director:
         self.score_val = 0
         # Number of asteroids on the page (10 was set on main change this if main is modified)
         self.current_asteroids = 10
-        self.total_asteroids = 40  # Max number of asteroids on current level
+        self.total_asteroids = 0  # Max number of asteroids on current level
         self.lives_val = 3  # starting number of lives
         self.keep_playing = True  # Used for end game logic
         self.speed = 1  # Speed of asteroids
@@ -119,12 +119,20 @@ class Director:
 
                 if bullet_x > astroid_x - 15 and bullet_x < astroid_x + 15:
                     if bullet_y < asteroid_y:
-                        if len(asteroids) == 1:
-                            self.level = level.level_up()
-
+                        
                         cast.remove_actor("bullets", bullet)
                         cast.remove_actor("asteroids", asteroid)
                         self.score_val += 100
+
+                        if len(asteroids) == 1:
+                            self.level = level.level_up()
+
+                            self.current_level += 1
+                            self.total_asteroids = 40 + self.level * 5
+                            self.current_asteroids = 10
+                            self.speed *= 1.2
+
+                            self.start_game(cast)
 
 
                     
@@ -165,13 +173,7 @@ class Director:
                 self.create_objects(cast)   
 
         if self.level > self.current_level:
-            self.current_level += 1
-            self.total_asteroids = 40 + self.level * 5
-            self.current_asteroids = 10
-            self.speed *= 1.2
-
-            self.start_game(cast)
-
+            pass
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
 
@@ -249,4 +251,7 @@ class Director:
                 for bullet in cast.get_actors("bullets"):
                     cast.remove_actor("bullets", bullet)
                     bullet.set_text("")
+                
+                self._video_service.close_window()
+
                 self.start_game(cast)

@@ -6,7 +6,7 @@ from earth_defender.shared.color import Color
 FRAME_RATE = 60
 MAX_X = 900
 MAX_Y = 600
-CELL_SIZE = 15
+CELL_SIZE = 8
 FONT_SIZE = 15
 COLS = 60
 ROWS = 40
