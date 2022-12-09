@@ -60,11 +60,6 @@ class Director:
         level.set_text('Level ' + str(self.level))
         self.total_asteroids = self.total_asteroids + self.level * 10
 
-        while self._video_service.is_window_open():
-            self._get_inputs(cast)
-            self._do_updates(cast)
-            self._do_outputs(cast)
-
     def _get_inputs(self, cast):
         """Gets directional input from the keyboard and applies it to the player.
         Also gets the player's bullets and adjusts the level.
@@ -102,7 +97,8 @@ class Director:
             bullet_position = bullet.get_position()
             bullet_y = bullet_position.get_y()
 
-            if bullet_y == 0:
+            if bullet_y <= 0:
+                bullet.set_text("")
                 cast.remove_actor("bullets", bullet)
 
         for asteroid in asteroids:
@@ -134,17 +130,6 @@ class Director:
                             self.speed *= 1.2
 
                             self.start_game(cast)
-
-            # Loop through all bullets
-            # for bullet in bullets:
-            #      bullet.shoot()
-            #      bullet_position = asteroid.get_position()
-            #      bullet_y = bullet_position.get_y()
-
-            #     # If projectile/bullet hit asteriod
-                #  if bullet_position == asteroid_position:
-                #      cast.remove_actor("asteroids", asteroid)
-                #      cast.remove_actor("bullets", bullets)
 
             # pop if asteroid reaches end of screen and remove points
             if asteroid_y == 600:

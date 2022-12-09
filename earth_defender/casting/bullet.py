@@ -30,23 +30,3 @@ class Bullet(Objects):
         new_bullet.set_position(player.get_position())
         # add bullet to cast for use throughout
         cast.add_actor("bullets", new_bullet)
-
-    # def remove_actor(self, group, actor):
-    #     """Removes an actor from the given group.
-    #     Args:
-    #         group (string): The name of the group.
-    #         actor (Actor): The actor to remove.
-    #     """
-    #     if group in self._actors:
-    #         self._actors[group].remove(actor)
-
-    # def shoot(self, cast):
-    #     bullets = cast.get_actors("bullets")
-
-    #     for bullet in bullets:
-    #         position = bullet.get_position()
-    #         x = position.get_x()
-    #         y = position.get_y()
-    #         new_position = Point(x, y - 1)
-
-    #         bullet.set_position(new_position)
