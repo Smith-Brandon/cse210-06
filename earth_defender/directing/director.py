@@ -5,7 +5,7 @@ from constants import *
 from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
-from ..casting.objects import Objects
+from ..casting.asteroids import Asteroids
 
 
 
@@ -94,7 +94,7 @@ class Director:
         player.move_next(max_x, max_y)
 
         for bullet in bullets:
-            bullet.shoot()
+            bullet.move_next()
             bullet_position = bullet.get_position()
             bullet_y = bullet_position.get_y() 
 
@@ -102,7 +102,7 @@ class Director:
                 cast.remove_actor("bullets", bullet)
 
         for asteroid in asteroids:
-            asteroid.fall(int(self.speed))
+            asteroid.move_next(int(self.speed))
             asteroid_position = asteroid.get_position()
             asteroid_y = asteroid_position.get_y()
 
@@ -194,7 +194,7 @@ class Director:
             color = Color(r, g, b)
 
             # create the asteroids
-            asteroids = Objects()
+            asteroids = Asteroids()
             position = Point(random.randint(2, 898), 0)
             asteroids.set_text("*")
             asteroids.set_font_size(ASTROIDS_SIZE)

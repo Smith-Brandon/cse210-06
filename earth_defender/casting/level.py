@@ -1,6 +1,5 @@
 from ..casting.actor import Actor
 
-
 class Level(Actor):
     '''The level is an integer that controls the speed
     at which the astroids fall to earth. It also controls

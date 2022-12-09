@@ -1,7 +1,5 @@
 from ..shared.point import Point
-from ..casting.objects import Objects
 from ..casting.bullet import Bullet
-from ..shared.color import Color
 from ..shared.point import Point
 import pyray
 from constants import *

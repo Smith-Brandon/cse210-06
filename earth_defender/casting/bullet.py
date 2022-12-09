@@ -1,9 +1,9 @@
-from .objects import Objects
+from .actor import Actor
 from constants import *
 
 '''Bullet class performs all things needed to make shoot and track collisions of a bullet'''
 
-class Bullet(Objects):
+class Bullet(Actor):
 
     def __init__(self):
         super().__init__()  
@@ -23,24 +23,6 @@ class Bullet(Objects):
         # add bullet to cast for use throughout
         cast.add_actor("bullets", new_bullet)
 
-    # def remove_actor(self, group, actor):
-    #     """Removes an actor from the given group.
-    #     Args:
-    #         group (string): The name of the group.
-    #         actor (Actor): The actor to remove.
-    #     """
-    #     if group in self._actors:
-    #         self._actors[group].remove(actor)
-
-    # def shoot(self, cast):
-    #     bullets = cast.get_actors("bullets")
-
-    #     for bullet in bullets:
-    #         position = bullet.get_position()
-    #         x = position.get_x()
-    #         y = position.get_y()
-    #         new_position = Point(x, y - 1)
-            
-    #         bullet.set_position(new_position)
-            
-
+# Move the bullet one space up
+    def move_next(self):
+        self._position.y -= 8
