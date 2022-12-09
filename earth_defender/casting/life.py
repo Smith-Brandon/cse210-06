@@ -38,8 +38,9 @@ class Life(Actor):
             int: The current amount of lives.
         """
 
-        if level == self.level_add_life:
-            current_lives += 1
-            self.level_add_life += 5
+        # if level == self.level_add_life:
+        #     current_lives += 1
+        #     self.level_add_life += 5
+        current_lives += 1
 
         return current_lives

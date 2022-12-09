@@ -3,10 +3,11 @@ from turtle import *
 
 
 from constants import *
-from earth_defender.casting.objects import Objects
+from earth_defender.casting.actor import Actor
 from earth_defender.casting.cast import Cast
 from earth_defender.casting.life import Life
 from earth_defender.casting.level import Level
+from earth_defender.casting.asteroids import Asteroids
 
 from earth_defender.directing.director import Director
 
@@ -24,7 +25,7 @@ def main():
 
     # create the score
     position = Point(425, 5)
-    score = Objects()
+    score = Actor()
     score.set_text("Score: ")
     score.set_font_size(FONT_SIZE)
     score.set_color(WHITE)
@@ -42,7 +43,7 @@ def main():
     # create the player
     position = Point(450, 575)
 
-    player = Objects()
+    player = Actor()
     player.set_text("#")
     player.set_font_size(PLAYER_SIZE)
     player.set_color(WHITE)
@@ -63,7 +64,6 @@ def main():
     for n in range(10):
 
         x = random.randint(1, COLS - 1)
-        #y = random.randint(1, ROWS - 1)
         y = random.randint(1, 20)  # Start at half page
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
@@ -74,8 +74,7 @@ def main():
         color = Color(r, g, b)
 
         # create the asteroids
-        asteroids = Objects()
-        #position = Point(random.randint(2,898), 0)
+        asteroids = Asteroids()
         asteroids.set_text("*")
         asteroids.set_font_size(ASTROIDS_SIZE)
         asteroids.set_color(color)

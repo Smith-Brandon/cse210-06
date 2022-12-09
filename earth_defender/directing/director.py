@@ -4,7 +4,7 @@ from constants import *
 from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
-from ..casting.objects import Objects
+from ..casting.asteroids import Asteroids
 
 
 class Director:
@@ -30,7 +30,7 @@ class Director:
         self.score_val = 0
         # Number of asteroids on the page (10 was set on main change this if main is modified)
         self.current_asteroids = 10
-        self.total_asteroids = 0  # Max number of asteroids on current level
+        self.total_asteroids = 40  # Max number of asteroids on current level
         self.lives_val = 3  # starting number of lives
         self.keep_playing = True  # Used for end game logic
         self.speed = 1  # Speed of asteroids
@@ -57,16 +57,6 @@ class Director:
             self._do_outputs(cast)
 
         self._video_service.close_window()
-
-    def reset_game(self, cast):
-        """Resets the game using the given cast. Runs the main game loop.
-
-        Args:
-            cast (Cast): The cast of actors.
-        """
-        level = cast.get_first_actor("level")
-        level.set_text('Level ' + str(self.level))
-        self.total_asteroids = self.total_asteroids + self.level * 10
 
     def _get_inputs(self, cast):
         """Gets directional input from the keyboard and applies it to the player.
@@ -101,7 +91,7 @@ class Director:
         player.move_next(max_x, max_y)
 
         for bullet in bullets:
-            bullet.shoot()
+            bullet.move_next()
             bullet_position = bullet.get_position()
             bullet_y = bullet_position.get_y()
 
@@ -110,7 +100,7 @@ class Director:
                 cast.remove_actor("bullets", bullet)
 
         for asteroid in asteroids:
-            asteroid.fall(int(self.speed))
+            asteroid.move_next(int(self.speed))
             asteroid_position = asteroid.get_position()
             asteroid_y = asteroid_position.get_y()
 
@@ -127,30 +117,31 @@ class Director:
 
                         cast.remove_actor("bullets", bullet)
                         cast.remove_actor("asteroids", asteroid)
-                        self.score_val += 100
-
-                        if len(asteroids) == 1:
-                            self.level = level.level_up()
-
-                            self.current_level += 1
-                            self.total_asteroids = 40 + self.level * 5
-                            self.current_asteroids = 10
-                            self.speed *= 1.2
-
-                            self._video_service.close_window()
-
-                            self.start_game(cast)
+                        if self.keep_playing:
+                            self.score_val += 100
 
             # pop if asteroid reaches end of screen and remove points
-            if asteroid_y == 600:
+            if asteroid_y >= 600:
                 cast.remove_actor("asteroids", asteroid)
                 # asteroid.set_text("")
-                self.lives_val = lives.lose_lives(self.lives_val)
+                if self.lives_val > 0:
+                    self.lives_val = lives.lose_lives(self.lives_val)
+
+        if len(asteroids) <= 0 and self.current_asteroids == self.total_asteroids and self.lives_val > 0:
+            self.level = level.level_up()
+            self.current_level += 1
+            self.total_asteroids = 40 + self.level * 5
+            self.current_asteroids = 10
+            self.speed *= 1.3
+            if self.level % 5 == 0:
+                self.lives_val = lives.add_life(self.lives_val)
+            self._video_service.close_window()
+            self.start_game(cast)
 
         score.set_text("Score: " + str(self.score_val))
         lives.set_text("Lives: " + str(self.lives_val))
 
-        if self.lives_val == 0:
+        if self.lives_val <= 0:
             self.keep_playing = False
 
         self._game_over(cast)
@@ -164,9 +155,6 @@ class Director:
             # Only create more if current_asteroids is less than level total
             if self.current_asteroids < self.total_asteroids:
                 self.create_objects(cast)
-
-        if self.level > self.current_level:
-            pass
 
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
@@ -208,7 +196,7 @@ class Director:
             color = Color(r, g, b)
 
             # create the asteroids
-            asteroids = Objects()
+            asteroids = Asteroids()
             position = Point(random.randint(2, 898), 0)
             asteroids.set_text("*")
             asteroids.set_font_size(ASTROIDS_SIZE)
@@ -224,12 +212,12 @@ class Director:
         """
         # Checks to see that the game has ended
         if self.keep_playing == False:
+
             # Sets the postion of the game over text
             x = int(900 / 2.3)
             y = int(600 / 2)
             position = Point(x, y)
 
-            self.lives_val = 0
             # Creates the game over text
             message = Actor()
             message.set_text("    GAME OVER!\nPress 'y' to play again!")
@@ -244,6 +232,7 @@ class Director:
                 self.current_asteroids = 10
                 self.speed = 1
                 self.level = 1
+                self.current_level = 1
                 for message in cast.get_actors("messages"):
                     cast.remove_actor("messages", message)
                     message.set_text("")
@@ -253,6 +242,9 @@ class Director:
                 for bullet in cast.get_actors("bullets"):
                     cast.remove_actor("bullets", bullet)
                     bullet.set_text("")
+
+                level = cast.get_first_actor("level")
+                level.reset_level()
 
                 self._video_service.close_window()
                 self.start_game(cast)

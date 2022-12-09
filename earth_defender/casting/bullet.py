@@ -1,4 +1,4 @@
-from .objects import Objects
+from .actor import Actor
 from constants import *
 
 
@@ -30,3 +30,7 @@ class Bullet(Objects):
         new_bullet.set_position(player.get_position())
         # add bullet to cast for use throughout
         cast.add_actor("bullets", new_bullet)
+
+# Move the bullet one space up
+    def move_next(self):
+        self._position.y -= 8

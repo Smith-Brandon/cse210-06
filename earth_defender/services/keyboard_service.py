@@ -1,7 +1,5 @@
 from ..shared.point import Point
-from ..casting.objects import Objects
 from ..casting.bullet import Bullet
-from ..shared.color import Color
 from ..shared.point import Point
 import pyray
 from constants import *
@@ -24,6 +22,11 @@ class KeyboardService:
             cell_size (int): The size of a cell in the display grid.
         """
         self._cell_size = cell_size
+
+    # Passing the player and cast objects from Main to keyboard_service
+    def add_player(self, cast, player):
+        self._cast = cast
+        self._player = player
 
     def get_direction(self):
         """Gets the selected direction based on the currently pressed keys.
@@ -69,13 +72,3 @@ class KeyboardService:
             bullet = Bullet()
             bullet.create_bullet(cast)
             # bullet.shoot(cast)
-
-    def add_player(self, cast, player):
-        """Passes the player and cast objects from Main to keyboard_service.
-
-        Args:
-            cast (Cast): The cast of actors.
-            player (Player): The player object.
-        """
-        self._cast = cast
-        self._player = player
