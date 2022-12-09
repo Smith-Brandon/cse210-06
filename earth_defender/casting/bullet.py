@@ -2,7 +2,7 @@ from .actor import Actor
 from constants import *
 
 
-class Bullet(Objects):
+class Bullet(Actor):
     """Bullet class performs all things needed to make, 
     shoot, and track collisions of a bullet
     """

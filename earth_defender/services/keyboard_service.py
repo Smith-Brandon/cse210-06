@@ -71,4 +71,3 @@ class KeyboardService:
         if pyray.is_key_pressed(pyray.KEY_SPACE):
             bullet = Bullet()
             bullet.create_bullet(cast)
-            # bullet.shoot(cast)
