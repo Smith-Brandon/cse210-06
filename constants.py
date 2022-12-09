@@ -12,13 +12,6 @@ COLS = 60
 ROWS = 40
 CAPTION = "Earth Defender"
 WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = random.randint(9, 11)
 PLAYER_SIZE = 25
-BULLET_SIZE = 50
 ASTROIDS_SIZE = 20
-
-
-'''Keyboard_services Constants'''
 BULLET_SIZE = 30
-WHITE = Color(255, 255, 255)
-# COUNTER = 0

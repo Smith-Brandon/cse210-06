@@ -39,7 +39,6 @@ def main():
     level.set_position(position)
     cast.add_actor("level", level)
 
-
     # create the player
     position = Point(450, 575)
 
@@ -64,7 +63,6 @@ def main():
     for n in range(10):
 
         x = random.randint(1, COLS - 1)
-        #y = random.randint(1, ROWS - 1)
         y = random.randint(1, 20)  # Start at half page
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
@@ -76,20 +74,11 @@ def main():
 
         # create the asteroids
         asteroids = Objects()
-        #position = Point(random.randint(2,898), 0)
         asteroids.set_text("*")
         asteroids.set_font_size(ASTROIDS_SIZE)
         asteroids.set_color(color)
         asteroids.set_position(position)
         cast.add_actor("asteroids", asteroids)
-
-        # Creation of bullet objects with text '^'
-    #     # Position and color not set yet
-    # for i in range(50):
-    #     bullets = Objects()
-    #     bullets.set_text("^")
-    #     bullets.set_font_size(BULLET_SIZE)
-    #     cast.add_actor("bullets", bullets)
 
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
