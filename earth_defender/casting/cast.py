@@ -1,6 +1,5 @@
 
 
-
 class Cast:
     """A collection of actors.
 
@@ -80,24 +79,6 @@ class Cast:
                 result = self._actors[group][0]
         return result
 
-    # def remove_actor(self, actor):
-    #     """Removes an actor from the given group.
-
-    #     Args:
-    #         group (string): The name of the group.
-    #         actor (Actor): The actor to remove.
-    #     """
-    #     '''If actor group is asteroid or bullet'''
-    #     actors = self.get_all_actors()
-    #     countbefore = len(actors)
-    #     index = actors.index(actor)
-    #     actors.pop(index)
-    #     countafter = len(actors)
-    #     #self._actors[group].remove(actor)
-    #     for item in self._actors:
-    #         if(item == actor):
-    #             actors.pop(index) # line just for testing
-
     def remove_actor(self, group, actor):
         """Removes an actor from the given group.
 
@@ -110,4 +91,3 @@ class Cast:
                 pass
             else:
                 self._actors[group].remove(actor)
-            

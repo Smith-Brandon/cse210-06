@@ -19,6 +19,7 @@ from earth_defender.shared.point import Point
 
 
 def main():
+    """The main function for the game."""
 
     # create the cast
     cast = Cast()
@@ -85,7 +86,6 @@ def main():
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
     director = Director(keyboard_service, video_service)
-    keyboard_service.add_player(cast, player)
     director.start_game(cast)
 
 
