@@ -1,5 +1,6 @@
 import random
 from earth_defender.shared.color import Color
+from earth_defender.shared.point import Point
 
 
 """Main Constants"""
@@ -15,3 +16,5 @@ WHITE = Color(255, 255, 255)
 PLAYER_SIZE = 25
 ASTROIDS_SIZE = 20
 BULLET_SIZE = 30
+GAME_OVER_MESSAGE_POSITION = Point(int(900 / 2.3), int(600 / 2))
+GAME_OVER_MESSAGE_TEXT = "    GAME OVER!\nPress 'y' to play again!"
