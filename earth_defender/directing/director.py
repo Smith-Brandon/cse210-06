@@ -221,7 +221,7 @@ class Director:
 
             # Creates the game over text
             message = Message()
-            message.create_message(cast)
+            message.create_message(cast, GAME_OVER_MESSAGE_TEXT, GAME_OVER_MESSAGE_POSITION)
             # Runs through setting the game back up
             if self._keyboard_service.get_play_again():
                 self.keep_playing = True

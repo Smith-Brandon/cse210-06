@@ -1,7 +1,4 @@
 from .actor import Actor
-from constants import *
-from ..shared.point import Point
-
 
 class Message(Actor):
     """The Message is a display to the user that will show the user a message on screen.  
@@ -17,10 +14,17 @@ class Message(Actor):
     def __init__(self):
         super().__init__()
 
-    def create_message(self, cast):
+    def create_message(self, cast, text, position):
+        '''Creates message and sets their position and text to the given parameters.
+        
+        Args:
+            cast (Cast): The cast of all actors
+            text (string): The text to display
+            position (the position of the message)
+        '''
         message = Message()
         # Sets the postion of the game over text
-        message.set_text(GAME_OVER_MESSAGE_TEXT)
-        message.set_position(GAME_OVER_MESSAGE_POSITION)
+        message.set_text(text)
+        message.set_position(position)
         cast.add_actor("messages", message)
         

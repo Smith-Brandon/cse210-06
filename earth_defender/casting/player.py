@@ -14,9 +14,15 @@ class Player(Actor):
     """
 
     def __init__(self):
+        '''Cunstructs player'''
         super().__init__()
 
     def create_player(self, cast):
+        '''Creates player and sets their position to the center of the screen on the bottom.
+        
+        Args:
+            cast (Cast): The cast of all actors
+        '''
         player = Player()
         position = Point(450, 575)
 
