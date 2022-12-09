@@ -8,6 +8,7 @@ from earth_defender.casting.cast import Cast
 from earth_defender.casting.life import Life
 from earth_defender.casting.level import Level
 from earth_defender.casting.asteroids import Asteroids
+from earth_defender.casting.player import Player
 
 from earth_defender.directing.director import Director
 
@@ -42,14 +43,8 @@ def main():
     cast.add_actor("level", level)
 
     # create the player
-    position = Point(450, 575)
-
-    player = Actor()
-    player.set_text("#")
-    player.set_font_size(PLAYER_SIZE)
-    player.set_color(WHITE)
-    player.set_position(position)
-    cast.add_actor("player", player)
+    player = Player()
+    player.create_player(cast)
 
     # create lives
     x = int(MAX_X / 2)

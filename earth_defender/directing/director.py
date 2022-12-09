@@ -1,6 +1,7 @@
 import random
 from turtle import *
 from constants import *
+from ..casting.message import Message
 from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
@@ -219,10 +220,8 @@ class Director:
             position = Point(x, y)
 
             # Creates the game over text
-            message = Actor()
-            message.set_text("     GAME OVER!\nPress 'y' to play again!")
-            message.set_position(position)
-            cast.add_actor("messages", message)
+            message = Message()
+            message.create_message(cast)
             # Runs through setting the game back up
             if self._keyboard_service.get_play_again():
                 self.keep_playing = True
