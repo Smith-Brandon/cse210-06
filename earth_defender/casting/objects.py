@@ -24,7 +24,7 @@ class Objects(Actor):
     def get_item_type(self):
         return self._object
 
-    def fall(self, speed=1):
+    def fall(self, speed):
         if self._move_counter < 2:
             self._move_counter += 1
         else:

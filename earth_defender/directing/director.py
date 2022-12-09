@@ -48,10 +48,18 @@ class Director:
             cast (Cast): The cast of actors.
         """
         self._video_service.open_window()
+        bullets = cast.get_actors("bullets")
+        if len(bullets) != 0:
+            print(bullets)
+            for bullet in bullets:
+                cast.remove_actor("bullets", bullet)
+
         while self._video_service.is_window_open():
+
             self._get_inputs(cast)
             self._do_updates(cast)
             self._do_outputs(cast)
+
         self._video_service.close_window()
 
     def reset_game(self, cast):
@@ -101,11 +109,11 @@ class Director:
             bullet_position = bullet.get_position()
             bullet_y = bullet_position.get_y() 
 
-            if bullet_y == 0:
+            if bullet_y <= 0:
                 cast.remove_actor("bullets", bullet)
 
         for asteroid in asteroids:
-            asteroid.fall()
+            asteroid.fall(int(self.speed))
             asteroid_position = asteroid.get_position()
             asteroid_y = asteroid_position.get_y()
 
@@ -132,10 +140,9 @@ class Director:
                             self.current_asteroids = 10
                             self.speed *= 1.2
 
+                            self._video_service.close_window()
+
                             self.start_game(cast)
-
-
-                    
 
             # Loop through all bullets
             # for bullet in bullets:
@@ -253,5 +260,4 @@ class Director:
                     bullet.set_text("")
                 
                 self._video_service.close_window()
-
                 self.start_game(cast)
