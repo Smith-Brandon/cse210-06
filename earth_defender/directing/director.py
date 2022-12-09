@@ -6,6 +6,7 @@ from ..casting.actor import Actor
 from ..shared.color import Color
 from ..shared.point import Point
 from ..casting.asteroids import Asteroids
+from ..casting.messege import Message
 
 
 
@@ -208,16 +209,9 @@ class Director:
         # Checks to see that the game has ended
         if self.keep_playing == False:
 
-            # Sets the postion of the game over text
-            x = int(900 / 2.3)
-            y = int(600 / 2)
-            position = Point(x, y)
-
             # Creates the game over text
-            message = Actor()
-            message.set_text("    GAME OVER!\nPress 'y' to play again!")
-            message.set_position(position)
-            cast.add_actor("messages", message)
+            message = Message()
+            message.create_message(cast)
             # Runs through setting the game back up
             if self._keyboard_service.get_play_again():
                 self.keep_playing = True
