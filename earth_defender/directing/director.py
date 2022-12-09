@@ -27,15 +27,15 @@ class Director:
         self._keyboard_service = keyboard_service
         self._video_service = video_service
         self.moved = 0
-        self.score_val = 0
+        self.score_val = 0  # Starting score
         # Number of asteroids on the page (10 was set on main change this if main is modified)
         self.current_asteroids = 10
         self.total_asteroids = 40  # Max number of asteroids on current level
         self.lives_val = 3  # starting number of lives
         self.keep_playing = True  # Used for end game logic
         self.speed = 1  # Speed of asteroids
-        self.level = 1
-        self.current_level = 1
+        self.level = 1  # Starting level
+        self.current_level = 1  # Current level
 
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -220,7 +220,7 @@ class Director:
 
             # Creates the game over text
             message = Actor()
-            message.set_text("    GAME OVER!\nPress 'y' to play again!")
+            message.set_text("     GAME OVER!\nPress 'y' to play again!")
             message.set_position(position)
             cast.add_actor("messages", message)
             # Runs through setting the game back up

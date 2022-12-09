@@ -21,26 +21,20 @@ class Life(Actor):
         Args:
             current_lives (int): The current amount of lives.
         Returns:
-            int: The current amount of lives.
+            int: The updated amount of lives.
         """
-
         current_lives -= 1
 
         return current_lives
 
-    def add_life(self, level, current_lives):
-        """Gets the current level and adds a life every 5th level.
+    def add_life(self, current_lives):
+        """Adds a life to the current number of lives.
 
         Args:
-            level (int): The current level.
             current_lives (int): The current amount of lives.
         Returns:
-            int: The current amount of lives.
+            int: The updated amount of lives.
         """
-
-        # if level == self.level_add_life:
-        #     current_lives += 1
-        #     self.level_add_life += 5
         current_lives += 1
 
         return current_lives

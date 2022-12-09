@@ -23,11 +23,6 @@ class KeyboardService:
         """
         self._cell_size = cell_size
 
-    # Passing the player and cast objects from Main to keyboard_service
-    def add_player(self, cast, player):
-        self._cast = cast
-        self._player = player
-
     def get_direction(self):
         """Gets the selected direction based on the currently pressed keys.
 

@@ -5,6 +5,14 @@ from constants import *
 class Bullet(Actor):
     """Bullet class performs all things needed to make, 
     shoot, and track collisions of a bullet
+
+    Attributes:
+        Inherited from Actor:
+            _text (string): The text to display
+            _font_size (int): The font size to use.
+            _color (Color): The color of the text.
+            _position (Point): The screen coordinates.
+            _velocity (Point): The speed and direction.
     """
 
     def __init__(self):
@@ -31,6 +39,6 @@ class Bullet(Actor):
         # add bullet to cast for use throughout
         cast.add_actor("bullets", new_bullet)
 
-# Move the bullet one space up
     def move_next(self):
+        """Moves the bullet one space up."""
         self._position.y -= 8
